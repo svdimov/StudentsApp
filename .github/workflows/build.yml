@@ -20,6 +20,18 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
+  format-check:
+    runs-on: ubuntu-latest
+    needs: build-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run format:check
+
 
   run_nmp_security:
     runs-on: ubuntu-latest
